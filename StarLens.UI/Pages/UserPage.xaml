@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="StarLens.UI.Pages.UserPage"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
+             x:DataType="models:UserViewModel"
+             xmlns:converters ="clr-namespace:StarLens.UI.ValueConverters"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <converters:IntToUserStatusConverter x:Key="IntToUserStatusConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+    Command="{Binding LoadUserCommand}"/>
+    </ContentPage.Behaviors>
+    <Grid VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="0.6*"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center">
+            <Button Text="Log Out" HorizontalOptions="End" Command="{Binding LogOutButtonClickedCommand}"/>
+            <Image Source="{Binding AvatarImageSouce}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center"/>
+            <Label Text="{Binding CurrentUser.UserName}" FontSize="40" HorizontalOptions="Center"/>
+            <Label Text="{Binding CurrentUser.Status, Converter={StaticResource IntToUserStatusConverter}}" FontSize="20" HorizontalOptions="Center"/>
+            <Rectangle HeightRequest="10" Grid.Row="0" VerticalOptions="EndAndExpand" BackgroundColor="LightGray"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1"  VerticalOptions="Fill">
+
+
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Text="Feed" Command="{Binding FeedButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="1" Text="Search" Command="{Binding SearchButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="2" Text="User" Background="LightGray" CornerRadius="0" />
+        </Grid>
+    </Grid>
+
+</ContentPage>

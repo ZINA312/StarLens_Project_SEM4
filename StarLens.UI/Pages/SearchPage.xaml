@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarLens.UI.Pages.SearchPage"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities ="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             x:DataType="models:SearchViewModel"
+             NavigationPage.HasNavigationBar="False">
+    <Grid VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="0.6*"/>
+        </Grid.RowDefinitions>
+        <SearchBar x:Name="searchBar"
+                   Placeholder="Search"
+                   Text="{Binding SearchText}"
+                   Grid.Row="0">
+            <SearchBar.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="TextChanged"
+Command="{Binding SearchTextChangedCommand}"/>
+            </SearchBar.Behaviors>
+        </SearchBar>
+        <CollectionView x:Name="collectionView"
+                        ItemsSource="{Binding FoundUsers}"
+                        SelectionMode="Single"
+                        Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:User">
+                    <Label Text="{Binding UserName}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Text="Feed" Command="{Binding FeedButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="1" Text="Search" CornerRadius="0" Background="LightGray" />
+            <Button Grid.Column="2" Text="User" Command ="{Binding UserButtonClickedCommand}" CornerRadius="0" />
+        </Grid>
+    </Grid>
+</ContentPage>

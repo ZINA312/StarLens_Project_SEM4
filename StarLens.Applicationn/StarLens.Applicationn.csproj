@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StarLens.Domain\StarLens.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AccessoryUseCases\Commands\" />
+    <Folder Include="CameraUseCases\Commands\" />
+    <Folder Include="CommentUseCases\Commands\" />
+    <Folder Include="EquipmentUseCases\Commands\" />
+    <Folder Include="EquipmentUseCases\Queries\" />
+    <Folder Include="FilterUseCases\Commands\" />
+    <Folder Include="LikeUseCases\Commands\" />
+    <Folder Include="LikeUseCases\Queries\" />
+    <Folder Include="MountUseCases\Commands\" />
+    <Folder Include="MountUseCases\Queries\" />
+    <Folder Include="PublicationUseCases\Commands\" />
+    <Folder Include="PublicationUseCases\Queries\" />
+    <Folder Include="SessionUseCases\Commands\" />
+    <Folder Include="SessionUseCases\Queries\" />
+    <Folder Include="SubscriptionUseCases\Commands\" />
+    <Folder Include="SubscriptionUseCases\Queries\" />
+    <Folder Include="TechCardUseCases\Commands\" />
+    <Folder Include="TechCardUseCases\Queries\" />
+    <Folder Include="TelescopeUseCases\Commands\" />
+    <Folder Include="TelescopeUseCases\Queries\" />
+    <Folder Include="TopicUseCases\Commands\" />
+    <Folder Include="TopicUseCases\Queries\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,49 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarLens.UI.Pages.RegistrationPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
+             x:DataType="models:RegistrationViewModel">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout VerticalOptions="Center">
+        <Label Text="StarLens"
+               HorizontalOptions="Center"
+               FontSize="40"/>
+        <Entry Placeholder="NickName" 
+               PlaceholderColor="Gray"
+               HorizontalOptions="Center"
+               Text="{Binding NickName}"
+               Background="WhiteSmoke"
+               WidthRequest="130"/>
+        <Entry Placeholder="Email"
+               Text="{Binding Email}"
+               PlaceholderColor="Gray"
+               HorizontalOptions="Center"
+               Margin="10"
+               Background="WhiteSmoke"
+               WidthRequest="130"/>
+        <Entry Placeholder="Password" 
+               Text="{Binding Password}"
+               IsPassword="True"
+               PlaceholderColor="Gray"
+               Background="WhiteSmoke"
+               HorizontalOptions="Center"
+               WidthRequest="130"/>
+        <Button Text="Register"
+                Command="{Binding RegisterButtonClickedCommand}"
+                Margin="10"
+                WidthRequest="150"
+                HorizontalOptions="Center"/>
+        <Button Text="Back"
+                Command="{Binding BackButtonClickedCommand}"
+                WidthRequest="150"
+                HorizontalOptions="Center"/>
+        <Label Text="{Binding NotifyLabel}"
+               TextColor="Red"
+               HorizontalOptions="Center"/>
+
+
+    </VerticalStackLayout>
+</ContentPage>

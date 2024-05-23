@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarLens.UI.Pages.LogInPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:shell="http://schemas.microsoft.com/dotnet/2021/maui/shell"
+             x:DataType="models:LogInViewModel">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout VerticalOptions="Center">   
+        <Label Text="StarLens"
+               HorizontalOptions="Center" 
+               FontSize="40"/>
+        <Entry Placeholder="Email"
+               Text="{Binding Email}"
+               PlaceholderColor="Gray"
+               HorizontalOptions="Center"
+               Margin="10"
+               Background="WhiteSmoke"
+               WidthRequest="130"/>
+        <Entry Placeholder="Password" 
+               Text="{Binding Password}"
+               IsPassword="True"
+               Background="WhiteSmoke"
+               PlaceholderColor="Gray"
+               HorizontalOptions="Center"
+               WidthRequest="130"/>
+
+        <Button Text="Log In"
+                Command="{Binding LogInClickedCommand}"
+                Margin="10"
+                HorizontalOptions="Center"
+                WidthRequest="150"/>
+        <Button Text="Not registred yet?"
+                Command="{Binding RegisterClickedCommand}"
+                WidthRequest="150"
+                HorizontalOptions="Center"/>
+        <Label Text="{Binding NotifyLabel}"
+               TextColor="Red"
+               HorizontalOptions="Center"/>
+
+
+    </VerticalStackLayout>
+</ContentPage>

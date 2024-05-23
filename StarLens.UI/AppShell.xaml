@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="StarLens.UI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:StarLens.UI"
+    Shell.FlyoutBehavior="Disabled"
+    Title="StarLens.UI"
+    xmlns:pages ="clr-namespace:StarLens.UI.Pages"
+    Shell.NavBarIsVisible="False">
+
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:LogInPage}"
+        Route="LogInPage" />
+
+</Shell>
