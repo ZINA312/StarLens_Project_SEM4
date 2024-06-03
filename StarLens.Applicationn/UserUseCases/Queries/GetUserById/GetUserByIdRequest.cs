@@ -1,6 +1,6 @@
 ﻿
 namespace StarLens.Applicationn.UserUseCases.Queries.GetUserById
 {
-    public sealed record GetUserByIdRequest(int Id) : IRequest<IEnumerable<User>>
+    public sealed record GetUserByIdRequest(int Id) : IRequest<User>
     { }
 }

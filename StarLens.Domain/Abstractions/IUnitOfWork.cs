@@ -9,7 +9,6 @@ namespace StarLens.Domain.Abstractions
 {
     public interface IUnitOfWork
     {
-        IRepository<Accessory> AccessoryRepository { get; }
         IRepository<Camera> CameraRepository { get; }
         IRepository<Comment> CommentRepository { get; }
         IRepository<Filter> FilterRepository { get; }

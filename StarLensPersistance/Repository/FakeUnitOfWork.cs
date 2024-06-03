@@ -7,7 +7,6 @@ namespace StarLens.Persistance.Postgres.Repository
     {
         private readonly AppDbContext _context;
         private readonly FakeUserRepository _userRepository;
-        private readonly FakeAccessoryRepository _accessoryRepository;
         private readonly FakeCameraRepository _cameraRepository;
         private readonly FakeCommentRepository _commentRepository;
         private readonly FakeFilterRepository _filterRepository;
@@ -21,7 +20,6 @@ namespace StarLens.Persistance.Postgres.Repository
         public FakeUnitOfWork()
         {
             _userRepository = new FakeUserRepository();
-            _accessoryRepository = new FakeAccessoryRepository();
             _cameraRepository = new FakeCameraRepository(); 
             _commentRepository = new FakeCommentRepository();
             _filterRepository = new FakeFilterRepository();
@@ -34,7 +32,6 @@ namespace StarLens.Persistance.Postgres.Repository
             _telescopeRepository = new FakeTelescopeRepository();
         }
         public IRepository<User> UserRepository => _userRepository;
-        public IRepository<Accessory> AccessoryRepository => _accessoryRepository;
         public IRepository<Camera> CameraRepository => _cameraRepository;
         public IRepository<Comment> CommentRepository => _commentRepository;
         public IRepository<Filter> FilterRepository => _filterRepository;

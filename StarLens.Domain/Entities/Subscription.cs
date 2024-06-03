@@ -2,7 +2,12 @@
 {
     public class Subscription : Entity
     {
-        public Guid User { get; set; }
-        public Guid SubscribedUser { get; set; }
+        public Subscription(int currentUserId, int subscribedUserId) 
+        {
+            User = currentUserId;
+            SubscribedUser = subscribedUserId;
+        }
+        public int User { get; set; }
+        public int SubscribedUser { get; set; }
     }
 }

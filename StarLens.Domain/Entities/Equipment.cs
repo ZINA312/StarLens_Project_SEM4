@@ -2,10 +2,9 @@
 {
     public class Equipment : Entity
     {
-        public List<Telescope> Telescopes { get; set; } = [];
-        public List<Mount> Mounts { get; set; } = [];
-        public List<Camera> Cameras { get; set; } = [];
-        public List<Filter> Filters { get; set; } = [];
-        public List<Accessory> Accessories { get; set; } = [];
+        public int TelescopeId { get; set; }
+        public int MountId { get; set; }
+        public int CameraId { get; set; }
+        public int FilterId { get; set; }
     }
 }

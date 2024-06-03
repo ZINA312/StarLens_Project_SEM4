@@ -12,23 +12,23 @@
                HorizontalOptions="Center"
                FontSize="40"/>
         <Entry Placeholder="NickName" 
-               PlaceholderColor="Gray"
+               PlaceholderColor="Black"
                HorizontalOptions="Center"
                Text="{Binding NickName}"
-               Background="WhiteSmoke"
+               Background="LightGray"
                WidthRequest="130"/>
         <Entry Placeholder="Email"
                Text="{Binding Email}"
-               PlaceholderColor="Gray"
+               PlaceholderColor="Black"
                HorizontalOptions="Center"
                Margin="10"
-               Background="WhiteSmoke"
+               Background="LightGray"
                WidthRequest="130"/>
         <Entry Placeholder="Password" 
                Text="{Binding Password}"
                IsPassword="True"
-               PlaceholderColor="Gray"
-               Background="WhiteSmoke"
+               PlaceholderColor="Black"
+               Background="LightGray"
                HorizontalOptions="Center"
                WidthRequest="130"/>
         <Button Text="Register"
@@ -42,7 +42,8 @@
                 HorizontalOptions="Center"/>
         <Label Text="{Binding NotifyLabel}"
                TextColor="Red"
-               HorizontalOptions="Center"/>
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"/>
 
 
     </VerticalStackLayout>

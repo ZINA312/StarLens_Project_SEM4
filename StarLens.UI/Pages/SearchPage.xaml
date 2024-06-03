@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.6*"/>
             <RowDefinition Height="9*"/>
-            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="65"/>
         </Grid.RowDefinitions>
         <SearchBar x:Name="searchBar"
                    Placeholder="Search"
@@ -19,7 +19,7 @@
                    Grid.Row="0">
             <SearchBar.Behaviors>
                 <toolkit:EventToCommandBehavior EventName="TextChanged"
-Command="{Binding SearchTextChangedCommand}"/>
+                Command="{Binding SearchTextChangedCommand}"/>
             </SearchBar.Behaviors>
         </SearchBar>
         <CollectionView x:Name="collectionView"
@@ -28,7 +28,14 @@ Command="{Binding SearchTextChangedCommand}"/>
                         Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entities:User">
-                    <Label Text="{Binding UserName}" />
+                    <HorizontalStackLayout>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:SearchViewModel}}, Path=GoToUserViewPageCommand}"
+                                CommandParameter="{Binding .}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Label Text="{Binding UserName}" FontSize="20"/>
+                            
+                    </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
@@ -37,11 +44,15 @@ Command="{Binding SearchTextChangedCommand}"/>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Text="Feed" Command="{Binding FeedButtonClickedCommand}" CornerRadius="0"/>
-            <Button Grid.Column="1" Text="Search" CornerRadius="0" Background="LightGray" />
-            <Button Grid.Column="2" Text="User" Command ="{Binding UserButtonClickedCommand}" CornerRadius="0" />
+            <Button Grid.Column="0" Text="🌌" FontSize="25" Command="{Binding FeedButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="1" Text="💬" FontSize="20" Command="{Binding ForumButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="2" Text="+" FontSize="25" Command="{Binding AddPublicationButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="3" Text="⌕" FontSize="27" Background="LightGray"  CornerRadius="0" />
+            <Button Grid.Column="4" Text="👤"  FontSize="20" Command ="{Binding UserButtonClickedCommand}" CornerRadius="0" />
         </Grid>
     </Grid>
 </ContentPage>

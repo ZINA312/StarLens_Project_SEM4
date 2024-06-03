@@ -9,7 +9,12 @@ namespace StarLens.Persistance.Postgres.Repository
 
         public FakeMountRepository()
         {
-            _mount = new List<Mount>();
+            _mount = new List<Mount>()
+            {
+                new Mount("Mount 1", "Type 1", 13.4f),
+                new Mount("Mount 2", "Type 2", 13.4f),
+                new Mount("Mount 3", "Type 3", 13.4f),
+            };
         }
 
         public Task AddAsync(Mount entity, CancellationToken cancellationToken = default)
@@ -30,7 +35,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(techCard);
         }
 
-        public Task<Mount> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Mount, object>>[] includesProperties)
+        public Task<Mount> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Mount, object>>[] includesProperties)
         {
             Mount techCard = _mount.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(techCard);

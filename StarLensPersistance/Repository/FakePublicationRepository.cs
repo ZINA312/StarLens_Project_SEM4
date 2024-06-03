@@ -6,14 +6,30 @@ namespace StarLens.Persistance.Postgres.Repository
     public class FakePublicationRepository : IRepository<Publication>
     {
         private List<Publication> _publications;
-
+        private int _nextId;
         public FakePublicationRepository()
         {
             _publications = new List<Publication>();
+            _nextId = 1;
+            var publication1 = new Publication(1, "Название публикации 1", "Описание публикации 1", null);
+            publication1.Id = _nextId;
+            _nextId++;
+            var publication2 = new Publication(1, "Название публикации 1", "Описание публикации 2", null);
+            publication2.Id = _nextId;
+            _nextId++;
+            var publication3 = new Publication(1, "Название публикации 1", "Описание публикации 3", null);
+            publication3.Id = _nextId;
+            _nextId++;
+
+            _publications.Add(publication1);
+            _publications.Add(publication2);
+            _publications.Add(publication3);
         }
 
         public Task AddAsync(Publication entity, CancellationToken cancellationToken = default)
         {
+            entity.Id = _nextId;
+            _nextId++;
             _publications.Add(entity);
             return Task.CompletedTask;
         }
@@ -30,7 +46,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(publication);
         }
 
-        public Task<Publication> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Publication, object>>[] includesProperties)
+        public Task<Publication> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Publication, object>>[] includesProperties)
         {
             Publication publication = _publications.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(publication);

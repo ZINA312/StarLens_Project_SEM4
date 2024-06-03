@@ -35,7 +35,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(techCard);
         }
 
-        public Task<Camera> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Camera, object>>[] includesProperties)
+        public Task<Camera> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Camera, object>>[] includesProperties)
         {
             Camera techCard = _cameras.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(techCard);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:StarLens.UI.ViewModels"
+             x:Class="StarLens.UI.Pages.AddTopicPage"
+             x:DataType="models:AddTopicViewModel"
+             Title="AddTopicPage">
+    <VerticalStackLayout>
+        <Button Text="Back" Command="{Binding BackButtonClickedCommand}" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"/>
+        <Entry Text="{Binding Title}" Placeholder="Title" PlaceholderColor="Black" Background="LightGray" Margin="10"/>
+        <Entry Text="{Binding Text}" Placeholder="Text" PlaceholderColor="Black" Background="LightGray" Margin="10"/>
+        <Label Text="{Binding NotifyLabel}" TextColor="Red" HorizontalOptions="Center" Margin="0,3,0,3"/>
+        <Button Text="Add topic" Command="{Binding AddTopicButtonClickedCommand}" HorizontalOptions="Fill" Margin="10"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,11 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json;
+using StarLens.Applicationn.PublicationUseCases.Queries.GetPublicationById;
+using StarLens.Applicationn.PublicationUseCases.Queries.GetPublicationByUserId;
 using StarLens.Applicationn.UserUseCases.Queries.GetUserById;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace StarLens.UI.ViewModels
@@ -15,7 +16,7 @@ namespace StarLens.UI.ViewModels
         private readonly IMediator _mediator;
         private User _user = null;
         private string _avatarImageSource = "dotnet_bot.png";
-
+        private IEnumerable<Publication> _publications;
     
         public UserViewModel(IMediator mediator)
         {
@@ -31,6 +32,11 @@ namespace StarLens.UI.ViewModels
             get { return _avatarImageSource; }
             set { _avatarImageSource = value; OnPropertyChanged(); }
         }
+        public IEnumerable<Publication> Publications
+        {
+            get { return _publications; }
+            set { _publications = value; OnPropertyChanged(); }
+        }
 
         [RelayCommand]
         async Task OnLoadUser() => await LoadUser();
@@ -38,6 +44,10 @@ namespace StarLens.UI.ViewModels
         async Task FeedButtonClicked() => await GoToFeedPage();
         [RelayCommand]
         async Task SearchButtonClicked() => await GoToSearchPage();
+        [RelayCommand]
+        async Task ForumButtonClicked() => await GoToForumPage();
+        [RelayCommand]
+        async Task AddPublicationButtonClicked() => await GoToAddPublicationPage();
         [RelayCommand]
         async Task LogOutButtonClicked() => await LogOut();
 
@@ -50,13 +60,22 @@ namespace StarLens.UI.ViewModels
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                user = JsonConvert.DeserializeObject<User>(json);
+                user = JsonSerializer.Deserialize<User>(json);
             }
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
                 CurrentUser = user;
             });
-            
+            Publications = await _mediator.Send(new GetPublicationByUserIdRequest(user.Id));
+            Publications = Publications.OrderBy(p => DateTime.Parse(p.Date)).ToList();
+        }
+        public async Task GoToAddPublicationPage()
+        {
+            await Shell.Current.GoToAsync("AddPublicationPage", false);
+        }
+        public async Task GoToForumPage()
+        {
+            await Shell.Current.GoToAsync("ForumPage", false);
         }
         public async Task GoToFeedPage()
         {

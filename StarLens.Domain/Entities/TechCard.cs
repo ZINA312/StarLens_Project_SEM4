@@ -2,7 +2,10 @@
 {
     public class TechCard : Entity
     {
-        public Equipment? Equipment { get; set; }
+        public TechCard( List<Session> sessions)
+        {
+            Sessions = sessions;
+        }
         public List<Session> Sessions { get; set; } = [];
     }
 }

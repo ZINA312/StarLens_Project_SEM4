@@ -20,7 +20,13 @@ namespace StarLens.UI
                 .AddSingleton<RegistrationPage>()
                 .AddSingleton<UserPage>()
                 .AddSingleton<FeedPage>()
-                .AddSingleton<SearchPage>();
+                .AddSingleton<SearchPage>()
+                .AddSingleton<AddPublicationPage>()
+                .AddSingleton<ForumPage>()
+                .AddSingleton<AddSessionPage>()
+                .AddSingleton<UserViewPage>()
+                .AddSingleton<TopicViewPage>()
+                .AddSingleton<AddTopicPage>();
             return services;
         }
         static IServiceCollection RegisterViewModels(this IServiceCollection services)
@@ -30,7 +36,13 @@ namespace StarLens.UI
                 .AddSingleton<RegistrationViewModel>()
                 .AddSingleton<UserViewModel>()
                 .AddSingleton<FeedViewModel>()
-                .AddSingleton<SearchViewModel>();
+                .AddSingleton<SearchViewModel>()
+                .AddSingleton<ForumViewModel>()
+                .AddSingleton<AddPublicationViewModel>()
+                .AddSingleton<AddSessionViewModel>()
+                .AddSingleton<UserViewViewModel>()
+                .AddSingleton<TopicViewViewModel>()
+                .AddSingleton<AddTopicViewModel>();
             
             return services;
         }

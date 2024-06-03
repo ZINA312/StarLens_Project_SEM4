@@ -9,7 +9,12 @@ namespace StarLens.Persistance.Postgres.Repository
 
         public FakeTelescopeRepository()
         {
-            _telescopes = new List<Telescope>();
+            _telescopes = new List<Telescope>()
+            {
+                new Telescope("Telescope 1", "Type 1", 2000f, 200f),
+                new Telescope("Telescope 2", "Type 2", 2000f, 200f),
+                new Telescope("Telescope 3", "Type 3", 2000f, 200f),
+            };
         }
 
         public Task AddAsync(Telescope entity, CancellationToken cancellationToken = default)
@@ -30,7 +35,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(techCard);
         }
 
-        public Task<Telescope> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Telescope, object>>[] includesProperties)
+        public Task<Telescope> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Telescope, object>>[] includesProperties)
         {
             Telescope techCard = _telescopes.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(techCard);

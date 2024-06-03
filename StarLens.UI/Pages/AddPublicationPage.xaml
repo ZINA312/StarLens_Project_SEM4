@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:entities="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             x:DataType="models:AddPublicationViewModel"
+             x:Class="StarLens.UI.Pages.AddPublicationPage"
+             Title="AddPublicationPage">
+    <Grid VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="65"/>
+        </Grid.RowDefinitions>
+         
+        <VerticalStackLayout Grid.Row="0" VerticalOptions="FillAndExpand">
+            <Image Source="{Binding SelectedImageSource}" MaximumWidthRequest="200" MaximumHeightRequest="200"/>
+            <Label Text="{Binding NotifyLabel}" TextColor="Red"/>
+            <Button Text="Select image" Command="{Binding AddImageButtonClickedCommand}" Margin="10"/>
+            <Entry Placeholder="Title" PlaceholderColor="Black" Text="{Binding Title}" Background="LightGray" Margin="10"/>
+            <Entry Placeholder="Description" PlaceholderColor="Black" Text="{Binding Description}" BackgroundColor="LightGray" Margin="10"/>
+            <Button Text="Add session" Command="{Binding AddSessionButtonClickedCommand}" Margin="10"/>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <CollectionView ItemsSource="{Binding Sessions}" VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="entities:Session">
+                            <HorizontalStackLayout Background="LightGray">
+                                <Label Text="Date: "/>
+                                <Label Text="{Binding Date}" />
+                                <Label Text="Sum.Exp: " Margin="10,0,0,0"/>
+                                <Label Text="{Binding NumOfFrames}"/>
+                                <Label Text="x"/>
+                                <Label Text="{Binding Exposure}"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <Button Text="Publish" Command="{Binding PublishButtonClickedCommand}" Margin="10,10,10,20" VerticalOptions="End"/>
+        </VerticalStackLayout>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Text="🌌" FontSize="25" Command="{Binding FeedButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="1" Text="💬" FontSize="20" Command="{Binding ForumButtonClickedCommand}"  CornerRadius="0"/>
+            <Button Grid.Column="2" Text="+" FontSize="25" Background="LightGray" CornerRadius="0"/>
+            <Button Grid.Column="3" Text="⌕" FontSize="27" Command="{Binding SearchButtonClickedCommand}" CornerRadius="0" />
+            <Button Grid.Column="4" Text="👤"  FontSize="20" Command="{Binding UserButtonClickedCommand}" CornerRadius="0" />
+        </Grid>
+    </Grid>
+</ContentPage>

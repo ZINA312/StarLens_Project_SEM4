@@ -5,12 +5,10 @@ namespace StarLens.Persistance.Postgres.Repository
     public class EfUnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
-        private readonly Lazy<IRepository<Accessory>> _accessoryRepository;
         private readonly Lazy<IRepository<Camera>> _cameraRepository;
         private readonly Lazy<IRepository<Comment>> _commentRepository;
         private readonly Lazy<IRepository<Equipment>> _equipmentRepository;
         private readonly Lazy<IRepository<Filter>> _filterRepository;
-        private readonly Lazy<IRepository<Like>> _likeRepository;
         private readonly Lazy<IRepository<Mount>> _mountRepository;
         private readonly Lazy<IRepository<Publication>> _publicationRepository;
         private readonly Lazy<IRepository<Session>> _sessionRepository;
@@ -24,8 +22,6 @@ namespace StarLens.Persistance.Postgres.Repository
         public EfUnitOfWork(AppDbContext context)
         {
             _context = context;
-            _accessoryRepository = new Lazy<IRepository<Accessory>>(() =>
-            new EfRepository<Accessory>(context));
             _cameraRepository = new Lazy<IRepository<Camera>>(() =>
             new EfRepository<Camera>(context)); 
             _commentRepository = new Lazy<IRepository<Comment>>(() =>
@@ -34,8 +30,6 @@ namespace StarLens.Persistance.Postgres.Repository
             new EfRepository<Equipment>(context));
             _filterRepository = new Lazy<IRepository<Filter>>(() =>
             new EfRepository<Filter>(context));
-            _likeRepository = new Lazy<IRepository<Like>>(() =>
-            new EfRepository<Like>(context));
             _mountRepository = new Lazy<IRepository<Mount>>(() =>
             new EfRepository<Mount>(context));
             _publicationRepository = new Lazy<IRepository<Publication>>(() =>
@@ -54,12 +48,10 @@ namespace StarLens.Persistance.Postgres.Repository
             new EfRepository<User>(context));
         }
 
-        public IRepository<Accessory> AccessoryRepository => _accessoryRepository.Value;
         public IRepository<Camera> CameraRepository => _cameraRepository.Value;
         public IRepository<Comment> CommentRepository => _commentRepository.Value;
         public IRepository<Equipment> EquipmentRepository => _equipmentRepository.Value;
         public IRepository<Filter> FilterRepository => _filterRepository.Value;
-        public IRepository<Like> LikeRepository => _likeRepository.Value;
         public IRepository<Mount> MountRepository => _mountRepository.Value;
         public IRepository<Publication> PublicationRepository => _publicationRepository.Value;
         public IRepository<Session> SessionRepository => _sessionRepository.Value;

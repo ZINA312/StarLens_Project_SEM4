@@ -30,7 +30,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(session);
         }
 
-        public Task<Session> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Session, object>>[] includesProperties)
+        public Task<Session> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Session, object>>[] includesProperties)
         {
             Session session = _sessions.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(session);

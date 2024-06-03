@@ -2,25 +2,44 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StarLens.UI.Pages.FeedPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
              Title="FeedPage"
              xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
              x:DataType="models:FeedViewModel"
              NavigationPage.HasNavigationBar="False">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing"
+    Command="{Binding LoadPublicationsCommand}"/>
+    </ContentPage.Behaviors>
     <Grid VerticalOptions="Fill">
         <Grid.RowDefinitions>
             <RowDefinition Height="9.4*"/>
-            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="65"/>
         </Grid.RowDefinitions>
+        <ScrollView>
+            <CollectionView ItemsSource="{Binding Publications}" Grid.Row="1" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Publication">
+                        <Label Text="{Binding Title}" Background="Blue" HeightRequest="150" HorizontalOptions="Fill"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Text="Feed" Background="LightGray"  CornerRadius="0"/>
-            <Button Grid.Column="1" Text="Search" CornerRadius="0" Command="{Binding SearchButtonClickedCommand}"/>
-            <Button Grid.Column="2" Text="User" Command ="{Binding UserButtonClickedCommand}" CornerRadius="0" />
+            <Button Grid.Column="0" Text="🌌" FontSize="25" Background="LightGray" CornerRadius="0"/>
+            <Button Grid.Column="1" Text="💬" FontSize="20" Command="{Binding ForumButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="2" Text="+" FontSize="25" Command="{Binding AddPublicationButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="3" Text="⌕" FontSize="27" Command="{Binding SearchButtonClickedCommand}"  CornerRadius="0" />
+            <Button Grid.Column="4" Text="👤"  FontSize="20" Command ="{Binding UserButtonClickedCommand}" CornerRadius="0" />
         </Grid>
     </Grid>
 </ContentPage>

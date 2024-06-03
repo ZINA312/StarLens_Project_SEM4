@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:entities ="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             x:Class="StarLens.UI.Pages.UserViewPage"
+             x:DataType="models:UserViewViewModel"
+             xmlns:converters ="clr-namespace:StarLens.UI.ValueConverters"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <converters:IntToUserStatusConverter x:Key="IntToUserStatusConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior x:DataType="models:UserViewViewModel" EventName="Appearing"
+        Command="{Binding UpdateUserCommand}"/>
+    </ContentPage.Behaviors>
+    <Grid VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="65"/>
+        </Grid.RowDefinitions>
+        
+        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Fill">
+            
+            <Image Source="{Binding AvatarImageSource}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center"/>
+            <Label Text="{Binding User.UserName}" FontSize="40" HorizontalOptions="Center"/>
+            <Label Text="{Binding User.Status, Converter={StaticResource IntToUserStatusConverter}}" FontSize="20" HorizontalOptions="Center"/>
+            <Rectangle HeightRequest="20" VerticalOptions="EndAndExpand" BackgroundColor="LightGray"/>
+        </VerticalStackLayout>
+        
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Publications}"  >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                 Span="3" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Publication">
+                        <Label Text="{Binding Description}" Background="Blue" HeightRequest="150" WidthRequest="150"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Button Text="Subsribe" HorizontalOptions="Center" Command="{Binding SubscribeButtonClickedCommand}"  VerticalOptions="End"/>
+        <Button Text="Back" Command="{Binding BackButtonClickedCommand}" HorizontalOptions="End" VerticalOptions="End" Margin="10"/>
+    </Grid>
+
+</ContentPage>

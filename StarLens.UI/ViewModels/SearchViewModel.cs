@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
+using StarLens.UI.Pages;
 
 namespace StarLens.UI.ViewModels
 {
@@ -34,11 +37,31 @@ namespace StarLens.UI.ViewModels
         [RelayCommand]
         async Task UserButtonClicked() => await GoToUserPage();
         [RelayCommand]
+        async Task AddPublicationButtonClicked() => await GoToAddPublicationPage();
+        [RelayCommand]
+        async Task ForumButtonClicked() => await GoToForumPage();
+        [RelayCommand]
         async Task SearchTextChanged() => await Search();
+        [RelayCommand]
+        async Task GoToUserViewPage(User user) => await OpenUserPage(user);
 
+
+        public async Task OpenUserPage(User user)
+        {
+            var serializedUser = JsonSerializer.Serialize(user);
+            await Shell.Current.GoToAsync($"UserViewPage?user={Uri.EscapeDataString(serializedUser)}");
+        }
         public async Task Search()
         {
             FoundUsers = await _mediator.Send(new SearchUsersByNicknameRequest(SearchText));
+        }
+        public async Task GoToAddPublicationPage()
+        {
+            await Shell.Current.GoToAsync("AddPublicationPage", false);
+        }
+        public async Task GoToForumPage()
+        {
+            await Shell.Current.GoToAsync("ForumPage", false);
         }
         public async Task GoToFeedPage()
         {

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace StarLens.Applicationn.FilterUseCases.Queries.GetFilterByName
 {
-    internal class GetFilterByNameRequest
-    {
-    }
+    public sealed record GetFilterByNameRequest(string name) : IRequest<IEnumerable<Filter>>
+    { }
 }

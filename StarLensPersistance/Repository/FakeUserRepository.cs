@@ -12,13 +12,13 @@ namespace StarLens.Persistance.Postgres.Repository
 
             User user1 = new User("user1", "password1", "user1@example.com");
             user1.Status = 0;
-
+            user1.Id = 1;
             User user2 = new User("user2", "password2", "user2@example.com");
             user2.Status = 1;
-
+            user2.Id = 2;
             User user3 = new User("user3", "password3", "user3@example.com");
             user3.Status = 2;
-
+            user3.Id = 3;
             _users.Add(user1);
             _users.Add(user2);
             _users.Add(user3);
@@ -42,7 +42,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(user);
         }
 
-        public Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<User, object>>[]? includesProperties)
+        public Task<User> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<User, object>>[]? includesProperties)
         {
             User user = _users.FirstOrDefault(u => u.Id == id);
             return Task.FromResult(user);

@@ -16,16 +16,16 @@ namespace StarLens.UI.ValueConverters
                 switch (status)
                 {
                     case 0:
-                        return "Пользователь";
+                        return "User";
                     case 1:
-                        return "Модератор";
+                        return "Moderator";
                     case 2:
-                        return "Админ";
+                        return "Admin";
                     default:
-                        return "Неизвестный статус";
+                        return "Unknown status";
                 }
             }
-            return "Неизвестный статус";
+            return "Unknown status";
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

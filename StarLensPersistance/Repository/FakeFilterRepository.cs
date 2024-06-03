@@ -9,7 +9,13 @@ namespace StarLens.Persistance.Postgres.Repository
 
         public FakeFilterRepository()
         {
-            _filters = new List<Filter>();
+            _filters = new List<Filter>
+            {
+                new Filter("Filter 1", 1.25f),
+                new Filter("Filter 2", 2f),
+                new Filter("Filter 3", 3f),
+            };
+
         }
 
         public Task AddAsync(Filter entity, CancellationToken cancellationToken = default)
@@ -30,7 +36,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(techCard);
         }
 
-        public Task<Filter> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Filter, object>>[] includesProperties)
+        public Task<Filter> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Filter, object>>[] includesProperties)
         {
             Filter techCard = _filters.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(techCard);

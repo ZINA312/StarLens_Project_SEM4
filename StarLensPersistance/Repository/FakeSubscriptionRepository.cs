@@ -34,7 +34,7 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(subscription);
         }
 
-        public Task<Subscription> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<Subscription, object>>[] includesProperties)
+        public Task<Subscription> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<Subscription, object>>[] includesProperties)
         {
             Subscription subscription = _subscriptions.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(subscription);

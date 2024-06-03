@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:entities="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             x:DataType="models:ForumViewModel"
+             x:Class="StarLens.UI.Pages.ForumPage"
+             Title="ForumPage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior x:DataType="models:ForumViewModel" EventName="Appearing"
+    Command="{Binding SearchTextChangedCommand}"/>
+    </ContentPage.Behaviors>
+    <Grid VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="65"/>
+        </Grid.RowDefinitions>
+        <SearchBar x:Name="searchBar"
+               Placeholder="Search"
+               Text="{Binding SearchText}"
+               Grid.Row="0">
+            <SearchBar.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="TextChanged"
+            Command="{Binding SearchTextChangedCommand}"/>
+            </SearchBar.Behaviors>
+        </SearchBar>
+        <ScrollView Grid.Row="1">
+            <CollectionView x:Name="collectionView"
+            ItemsSource="{Binding FoundTopics}"
+            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Topic">
+                        <HorizontalStackLayout>
+                            <HorizontalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:ForumViewModel}}, Path=GoToTopicViewPageCommand}"
+                    CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout.GestureRecognizers>
+                            <Label Text="{Binding Title}" FontSize="20"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Button Grid.Row="1" Text="Add topic" Command="{Binding AddTopicButtonClickedCommand}" VerticalOptions="End" HorizontalOptions="Fill" Margin="10"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Text="🌌" FontSize="25" Command="{Binding FeedButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="1" Text="💬" FontSize="20"  Background="LightGray" CornerRadius="0"/>
+            <Button Grid.Column="2" Text="+" FontSize="25" Command="{Binding AddPublicationButtonClickedCommand}" CornerRadius="0"/>
+            <Button Grid.Column="3" Text="⌕" FontSize="27" Command="{Binding SearchButtonClickedCommand}"  CornerRadius="0" />
+            <Button Grid.Column="4" Text="👤"  FontSize="20" Command ="{Binding UserButtonClickedCommand}" CornerRadius="0" />
+        </Grid>
+    </Grid>
+</ContentPage>

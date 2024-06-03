@@ -29,7 +29,7 @@ namespace StarLens.Persistance.Postgres.Repository
         {
             return await _entities.FirstOrDefaultAsync(filter, cancellationToken);
         }
-        public async Task<T> GetByIdAsync(Guid id,
+        public async Task<T> GetByIdAsync(int id,
                                     CancellationToken cancellationToken = default,
                                     params Expression<Func<T, object>>[]? includesProperties)
         {

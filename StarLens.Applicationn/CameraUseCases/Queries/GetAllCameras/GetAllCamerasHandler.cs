@@ -1,4 +1,4 @@
-﻿using StarLens.
+﻿
 
 namespace StarLens.Applicationn.CameraUseCases.Queries.GetAllCameras
 {

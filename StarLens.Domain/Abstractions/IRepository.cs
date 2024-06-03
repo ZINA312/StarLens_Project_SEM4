@@ -10,7 +10,7 @@ namespace StarLens.Domain.Abstractions
 {
     public interface IRepository<T> where T : Entity
     {
-        Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default, params Expression<Func<T, object>>[]? includesProperties);
+        Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<T, object>>[]? includesProperties);
         Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken = default,
                                             params Expression<Func<T, object>>[]? includesProperties);

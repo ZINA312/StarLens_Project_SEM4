@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             xmlns:converters="clr-namespace:StarLens.UI.ValueConverters"
+             x:DataType="models:TopicViewViewModel"
+             x:Class="StarLens.UI.Pages.TopicViewPage"
+             Title="TopicViewPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UserIdToUserNameConverter x:Key="UserIdToUsernameConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior x:DataType="models:TopicViewViewModel" EventName="Appearing"
+    Command="{Binding UpdateTopicCommand}"/>
+    </ContentPage.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="65"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0">
+            <Button Text="Back" Command="{Binding BackButtonClickedCommand}" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"/>
+            <ScrollView>
+                <VerticalStackLayout>
+                    <Label Text="{Binding Creator.UserName}" FontSize="25" Margin="10,5,0,5"/>
+                    <Label Text="{Binding Topic.Title}" FontSize="40" Margin="3"/>
+                    <Label Text="{Binding Topic.Text}" FontSize="20" Margin="3"/>
+                </VerticalStackLayout>
+            </ScrollView>
+            <Rectangle  HorizontalOptions="End" HeightRequest="5" Background="LightGray" Margin="0,10,0,10"/>
+        </VerticalStackLayout>
+        <ScrollView  Grid.Row="1" HorizontalOptions="Start">
+            <CollectionView ItemsSource="{Binding Comments}" HorizontalOptions ="Start">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Comment">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding User.UserName}" Background="LightGray"/>
+                            <Label Text="{Binding Text}" Background="LightGray" Margin="0,0,0,10"/>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <HorizontalStackLayout Grid.Row="2" Margin="10">
+            <Entry Text="{Binding CommentText}" HorizontalOptions="StartAndExpand" Placeholder="Input comment" PlaceholderColor="Black" Background="LightGray"/>
+            <Button Text="➜" Command="{Binding AddCommentButtonClickedCommand}" HorizontalOptions="End" Margin="5,0,0,0"/>
+        </HorizontalStackLayout>
+        
+    </Grid>
+</ContentPage>

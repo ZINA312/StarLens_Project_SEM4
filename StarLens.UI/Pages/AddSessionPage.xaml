@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             x:Class="StarLens.UI.Pages.AddSessionPage"
+             x:DataType="models:AddSessionViewModel"
+             Title="AddSessionPage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+        Command="{Binding LoadEquipmentCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout>
+        <Label Text="{Binding NotifyLabel}" HorizontalOptions="Center" TextColor="Red" Margin="10"/>
+        <Label Text="Date:" Padding="10"/>
+        <DatePicker MaximumDate="{x:Static system:DateTime.Today}" />
+        <Label Text="Telescope:" Margin="10"/>
+        <Picker ItemsSource="{Binding Telescopes}" SelectedItem="{Binding SelectedTelescope}">
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Name"/>
+            </Picker.ItemDisplayBinding>
+        </Picker>
+        <Label Text="Camera:" Margin="10"/>
+        <Picker ItemsSource="{Binding Cameras}" SelectedItem="{Binding SelectedCamera}">
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Name"/>
+            </Picker.ItemDisplayBinding>
+        </Picker>
+        <Label Text="Mount:" Margin="10"/>
+        <Picker ItemsSource="{Binding Mounts}" SelectedItem="{Binding SelectedMount}">
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Name"/>
+            </Picker.ItemDisplayBinding>
+        </Picker>
+        <Label Text="Filter:" Margin="10"/>
+        <Picker ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}">
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Name"/>
+            </Picker.ItemDisplayBinding>
+        </Picker>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Placeholder="Frames" Grid.Column="0" Text="{Binding Frames}" PlaceholderColor="Black" Background="LightGray" Margin="10"/>
+            <Entry Placeholder="Exposure" Grid.Column="1" Text="{Binding Exposure}" PlaceholderColor="Black" Background="LightGray" Margin="10"/>
+        </Grid>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Placeholder="Gain(ISO)" Grid.Column="0" Text="{Binding Gain}" PlaceholderColor="Black" Background="LightGray" Margin="10"/>
+            <Entry Placeholder="Offset" Grid.Column="1" Text="{Binding Offset}" PlaceholderColor="Black" Background="LightGray" Margin="10"/>
+        </Grid>
+        <Button Text="Save" Command="{Binding SaveButtonClickedCommand}" Margin="10"/>
+        <Button Text="Back" Command="{Binding GoBackButtonClickedCommand}" Margin="10"/>
+    </VerticalStackLayout>
+</ContentPage>
