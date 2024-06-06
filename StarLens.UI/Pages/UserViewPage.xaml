@@ -10,6 +10,7 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <converters:IntToUserStatusConverter x:Key="IntToUserStatusConverter" />
+        <converters:PublicationIdToImageConverter x:Key="PublicationIdToImageConverter" />
     </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior x:DataType="models:UserViewViewModel" EventName="Appearing"
@@ -17,16 +18,17 @@
     </ContentPage.Behaviors>
     <Grid VerticalOptions="Fill">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="65"/>
         </Grid.RowDefinitions>
-        
+
         <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Fill">
-            
+            <Button Text="Back" Command="{Binding BackButtonClickedCommand}" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"/>
             <Image Source="{Binding AvatarImageSource}" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center"/>
             <Label Text="{Binding User.UserName}" FontSize="40" HorizontalOptions="Center"/>
             <Label Text="{Binding User.Status, Converter={StaticResource IntToUserStatusConverter}}" FontSize="20" HorizontalOptions="Center"/>
+            <Button Text="{Binding SubscribeButtonText}" BackgroundColor="{Binding SubscribeButtonColor}" Margin="10" HorizontalOptions="Center" Command="{Binding SubscribeButtonClickedCommand}" VerticalOptions="End"/>
             <Rectangle HeightRequest="20" VerticalOptions="EndAndExpand" BackgroundColor="LightGray"/>
         </VerticalStackLayout>
         
@@ -38,13 +40,19 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="entities:Publication">
-                        <Label Text="{Binding Description}" Background="Blue" HeightRequest="150" WidthRequest="150"/>
+                        <Image Source="{Binding Id, Converter={StaticResource PublicationIdToImageConverter}}" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="200" WidthRequest="200">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:UserViewViewModel}}, Path=OpenPublicationCommand}"
+CommandParameter="{Binding .}" />
+
+                            </Image.GestureRecognizers>
+                        </Image>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-        <Button Text="Subsribe" HorizontalOptions="Center" Command="{Binding SubscribeButtonClickedCommand}"  VerticalOptions="End"/>
-        <Button Text="Back" Command="{Binding BackButtonClickedCommand}" HorizontalOptions="End" VerticalOptions="End" Margin="10"/>
+        
+       
     </Grid>
 
 </ContentPage>

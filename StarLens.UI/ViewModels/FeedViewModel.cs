@@ -34,7 +34,14 @@ namespace StarLens.UI.ViewModels
         async Task AddPublicationButtonClicked() => await GoToAddPublicationPage();
         [RelayCommand]
         async Task ForumButtonClicked() => await GoToForumPage();
+        [RelayCommand]
+        async Task OpenPublication(Publication publication) => await GoToPublicationPage(publication);
 
+        public async Task GoToPublicationPage(Publication publication)
+        {
+            var serializedPublication = JsonSerializer.Serialize(publication);
+            await Shell.Current.GoToAsync($"PublicationViewPage?publication={Uri.EscapeDataString(serializedPublication)}");
+        }
         public async Task Load()
         {
             string filePath = Path.Combine(FileSystem.AppDataDirectory, "user.json");

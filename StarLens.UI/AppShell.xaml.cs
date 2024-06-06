@@ -18,6 +18,7 @@ namespace StarLens.UI
             Routing.RegisterRoute("UserViewPage", typeof(UserViewPage));
             Routing.RegisterRoute(nameof(TopicViewPage), typeof(TopicViewPage));
             Routing.RegisterRoute(nameof(AddTopicPage), typeof(AddTopicPage));
+            Routing.RegisterRoute(nameof(PublicationViewPage), typeof(PublicationViewPage));
         }
     }
 }

@@ -4,6 +4,7 @@
              x:Class="StarLens.UI.Pages.FeedPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:entities="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             xmlns:converters="clr-namespace:StarLens.UI.ValueConverters"
              Title="FeedPage"
              xmlns:models ="clr-namespace:StarLens.UI.ViewModels"
              x:DataType="models:FeedViewModel"
@@ -12,6 +13,9 @@
         <toolkit:EventToCommandBehavior EventName="Appearing"
     Command="{Binding LoadPublicationsCommand}"/>
     </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <converters:PublicationIdToImageConverter x:Key="PublicationIdToImageConverter" />
+    </ContentPage.Resources>
     <Grid VerticalOptions="Fill">
         <Grid.RowDefinitions>
             <RowDefinition Height="9.4*"/>
@@ -21,7 +25,15 @@
             <CollectionView ItemsSource="{Binding Publications}" Grid.Row="1" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="entities:Publication">
-                        <Label Text="{Binding Title}" Background="Blue" HeightRequest="150" HorizontalOptions="Fill"/>
+                        <VerticalStackLayout Background="LightGray">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:FeedViewModel}}, Path=OpenPublicationCommand}"
+CommandParameter="{Binding .}" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Label Text="{Binding User.UserName}"/>
+                            
+                            <Image Source="{Binding Id, Converter={StaticResource PublicationIdToImageConverter}}" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="150" WidthRequest="150"/>
+                        </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

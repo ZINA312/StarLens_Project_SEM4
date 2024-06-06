@@ -11,6 +11,7 @@
 
     <ContentPage.Resources>
         <converters:IntToUserStatusConverter x:Key="IntToUserStatusConverter" />
+        <converters:PublicationIdToImageConverter x:Key="PublicationIdToImageConverter" />
     </ContentPage.Resources>
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Appearing"
@@ -37,15 +38,17 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="entities:Publication">
-                        <Label Text="{Binding Title}" Background="Blue" HeightRequest="150" WidthRequest="150"/>
+                        <Image Source="{Binding Id, Converter={StaticResource PublicationIdToImageConverter}}" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="200" WidthRequest="200">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:UserViewModel}}, Path=OpenPublicationCommand}"
+CommandParameter="{Binding .}" />
+
+                            </Image.GestureRecognizers>
+                        </Image>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-            
-        
-       
-
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

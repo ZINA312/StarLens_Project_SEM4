@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:StarLens.UI.ViewModels"
+             xmlns:entities="clr-namespace:StarLens.Domain.Entities;assembly=StarLens.Domain"
+             xmlns:converters="clr-namespace:StarLens.UI.ValueConverters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="StarLens.UI.Pages.PublicationViewPage"
+             x:DataType="models:PublicationViewViewModel"
+             Title="PublicationViewPage">
+    <ContentPage.Resources>
+        <converters:PublicationIdToImageConverter x:Key="PublicationIdToImageConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior x:DataType="models:PublicationViewViewModel" EventName="Appearing"
+Command="{Binding UpdatePublicationCommand}"/>
+    </ContentPage.Behaviors>
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0">
+            <Button Text="Back" Command="{Binding GoBackButtonClickedCommand}" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"/>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding UserName}" Margin="10" FontSize="20" HorizontalOptions="Start"/>
+                <Label Text="{Binding Publication.Date}" Margin="10" FontSize="20" HorizontalOptions="End"/>
+            </HorizontalStackLayout>
+            <Image Source="{Binding Publication.Id, Converter={StaticResource PublicationIdToImageConverter}}" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="150" WidthRequest="150"/>
+            <Label Text="{Binding Publication.Title}" Margin="10" FontSize="30"/>
+            <Label Text="{Binding Publication.Description}" Margin="10" FontSize="20"/>
+            <Label Text="Sessions:" Margin="10"/>
+            <ScrollView>
+                <CollectionView ItemsSource="{Binding Publication.TechInfo.Sessions}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="entities:Session">
+                            <HorizontalStackLayout Margin="10">
+                                <Label Text="{Binding NumOfFrames}" Margin="10,0,0,0" />
+                                <Label Text="x"/>
+                                <Label Text="{Binding Exposure}" />
+                                <Label Text="Gain:" Margin="10,0,0,0"/>
+                                <Label Text="{Binding Gain}"/>
+                                <Label Text="{Binding Date}" HorizontalOptions="End" Margin="0,0,10,0"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <Label Text="Comments:" Margin="10"/>
+        </VerticalStackLayout>
+        
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Comments}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="entities:Comment">
+                        <VerticalStackLayout Margin="10">
+                            <Label Text="{Binding User.UserName}"/>
+                            <Label Text="{Binding Text}"/>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <HorizontalStackLayout Grid.Row="2" Margin="10" HorizontalOptions="FillAndExpand">
+            <Entry Text="{Binding CommentText}" HorizontalOptions="FillAndExpand" Placeholder="Input comment" PlaceholderColor="Black" Background="LightGray"/>
+            <Button Text="➜" Command="{Binding AddCommentButtonClickedCommand}" HorizontalOptions="End" Margin="5,0,0,0"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

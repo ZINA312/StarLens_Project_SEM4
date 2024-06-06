@@ -13,9 +13,6 @@
         public string Date { get; set; } = string.Empty;
         public string Text { get; set; } = string.Empty;
         public List<int> LikedByUsersId { get; set; } = [];
-        public void AddLike(int userid)
-        {
-            LikedByUsersId.Add(userid);
-        }
+
     }
 }

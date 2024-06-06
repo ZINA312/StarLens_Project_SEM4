@@ -105,8 +105,8 @@ namespace StarLens.UI.ViewModels
         }
         public async Task Publish()
         {
-            if (Title.Length > 50 || Title == string.Empty) { NotifyLabel = "Invalid title, it must be less then 50 symbols and not empty!"; return; }
-            if (Description.Length > 150 || Description == string.Empty) { NotifyLabel = "Invalid description, it must be less then 150 symbols and not empty!"; return; }
+            if (Title.Length > 50 || Title == string.Empty) { NotifyLabel = "Invalid title, it must be less than 50 symbols and not empty!"; return; }
+            if (Description.Length > 150 || Description == string.Empty) { NotifyLabel = "Invalid description, it must be less than 150 symbols and not empty!"; return; }
             string filePath = Path.Combine(FileSystem.AppDataDirectory, "user.json");
             User user = null;
             if (File.Exists(filePath))
@@ -115,7 +115,28 @@ namespace StarLens.UI.ViewModels
                 user = JsonSerializer.Deserialize<User>(json);
             }
             Publication newPublication = new Publication(user.Id, Title, Description, new TechCard(Sessions.ToList()));
-            await _mediator.Send(new AddPublicationRequest(newPublication));
+            newPublication = await _mediator.Send(new AddPublicationRequest(newPublication));
+            string imagesFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Images");
+            if (!Directory.Exists(imagesFolder))
+            {
+                Directory.CreateDirectory(imagesFolder);
+            }
+            string oldImagePath = SelectedImageSource;
+            string extension = Path.GetExtension(oldImagePath);
+            string newImagePath = Path.Combine(imagesFolder, $"{newPublication.Id}{extension}");
+            if (File.Exists(Path.Combine(imagesFolder, $"{newPublication.Id}.jpg")))
+            {
+                File.Delete(Path.Combine(imagesFolder, $"{newPublication.Id}.jpg"));
+            }
+            if (File.Exists(Path.Combine(imagesFolder, $"{newPublication.Id}.jpeg")))
+            {
+                File.Delete(Path.Combine(imagesFolder, $"{newPublication.Id}.jpeg"));
+            }
+            if (File.Exists(Path.Combine(imagesFolder, $"{newPublication.Id}.png")))
+            {
+                File.Delete(Path.Combine(imagesFolder, $"{newPublication.Id}.png"));
+            }
+            File.Move(oldImagePath, newImagePath);
             Title = string.Empty;
             Description = string.Empty;
             NotifyLabel = string.Empty;

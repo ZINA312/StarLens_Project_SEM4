@@ -52,7 +52,23 @@ namespace StarLens.UI.ValueConverters
                 });
             }
 
-            return Path.Combine(imagesFolder, $"{Id}.png");
+            string imagePath = Path.Combine(imagesFolder, $"{Id}.png");
+            if (!File.Exists(imagePath))
+            {
+                string jpgPath = Path.ChangeExtension(imagePath, "jpg");
+                string jpegPath = Path.ChangeExtension(imagePath, "jpeg");
+
+                if (File.Exists(jpgPath))
+                {
+                    imagePath = jpgPath;
+                }
+                else if (File.Exists(jpegPath))
+                {
+                    imagePath = jpegPath;
+                }
+            }
+
+            return imagePath;
         }
     }
 }

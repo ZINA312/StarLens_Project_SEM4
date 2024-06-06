@@ -1,4 +1,5 @@
 ﻿
+using StarLens.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace StarLens.Persistance.Postgres.Repository
@@ -65,9 +66,13 @@ namespace StarLens.Persistance.Postgres.Repository
             return Task.FromResult(filteredPublicationList);
         }
 
-        public Task UpdateAsync(Publication entity, CancellationToken cancellationToken = default)
+        public Task UpdateAsync(Publication publication, CancellationToken cancellationToken = default)
         {
-            // Perform any necessary update operations
+            var existingTopicIndex = _publications.FindIndex(t => t.Id == publication.Id);
+            if (existingTopicIndex >= 0)
+            {
+                _publications[existingTopicIndex] = publication;
+            }
             return Task.CompletedTask;
         }
     }
